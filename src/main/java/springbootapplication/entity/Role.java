@@ -1,0 +1,114 @@
+package springbootapplication.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.GenerationType;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+public class Role implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9129122443909476215L;
+	
+	@Id
+	//GenerationType.AUTO para que el autoincremento sea automático 
+	//generator= "native" es para que use el autoincremento de mySql
+	@GeneratedValue(strategy= GenerationType.AUTO, generator= "native")
+	@GenericGenerator(name="native", strategy= "native")
+	private Long id;
+	
+	@Column
+	private String name;
+	
+	@Column
+	private String description;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/*
+	 Alt+Shift+S aparece el menú para crear los getters and setters
+
+como buena práctica e recomendable sobreescribir el HashCode, equals y tostring
+
+Si no se sobreescribe el toString saca el número o el nombre de la posición en memoria
+de este objeto, y si se sobreescrie trae la información detallada de lo que contiene el objeto
+
+HashCode y el equals es para poder comparar y saber si es el mismo objeto o si
+tienen la misma información, etc
+	 * */
+	
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", name=" + name + ", description=" + description + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Role other = (Role) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+
+
+}
